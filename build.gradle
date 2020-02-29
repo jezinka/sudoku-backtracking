@@ -1,0 +1,24 @@
+plugins {
+    id 'groovy'
+}
+
+group 'sudoku'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url 'https://mvnrepository.com/artifact/org.apache.commons/commons-lang3' }
+    maven { url 'https://mvnrepository.com/artifact/org.spockframework/spock-core' }
+    maven { url 'https://mvnrepository.com/artifact/org.processing/core' }
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'org.processing', name: 'core', version: '3.3.7'
+    testCompile(
+            'org.spockframework:spock-core:1.1-groovy-2.4'
+    )
+}
