@@ -18,15 +18,15 @@ class Applet extends PApplet {
     }
 
     void setup() {
-        frameRate = 30
         f = createFont("Arial", 16, true)
     }
 
     void draw() {
         background(255)
         textFont(f, 16)
-        fill(0)
         drawBoard()
+        markFixed()
+        fill(0)
         text(sudokuBacktracking.textOutput, 20, 20)
         if (!sudokuBacktracking.isResolved()) {
             sudokuBacktracking.step()
@@ -38,9 +38,19 @@ class Applet extends PApplet {
     }
 
     private void drawBoard() {
+        fill(0)
+        stroke(0)
         line(64, 0, 64, 220)
         line(110, 0, 110, 220)
         line(20, 72, 160, 72)
         line(20, 145, 160, 145)
+    }
+
+    private void markFixed() {
+        fill(0, 255, 0, 63)
+        noStroke()
+        sudokuBacktracking.fixedPositions.each { Integer row, Integer col ->
+            rect(20 + (col * 15), 5 + (row * 24), 12, 20)
+        }
     }
 }

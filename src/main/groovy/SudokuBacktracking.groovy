@@ -1,8 +1,8 @@
 class SudokuBacktracking {
 
-    List<List<Integer>> board
-    Map<String, Boolean> isFixedNumber = [:]
-    int rowIndex, columnIndex
+    private List<List<Integer>> board
+    private Map<String, Boolean> isFixedNumber = [:]
+    private int rowIndex, columnIndex
 
     private String textOutput = ''
 
@@ -15,6 +15,10 @@ class SudokuBacktracking {
 
     boolean isResolved() {
         return board.flatten().every { it != 0 }
+    }
+
+    List getFixedPositions() {
+        isFixedNumber.findAll { k, v -> v }.keySet().collect { it.split('').collect { it as Integer } }
     }
 
     void step() {
