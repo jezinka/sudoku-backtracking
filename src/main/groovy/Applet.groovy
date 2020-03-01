@@ -31,8 +31,7 @@ class Applet extends PApplet {
         if (!sudokuBacktracking.isResolved()) {
             sudokuBacktracking.step()
         } else {
-            text("Done", 150, 240)
-            println(sudokuBacktracking.textOutput)
+            text("Done in ${sudokuBacktracking.duration} ms", 0, 240)
             noLoop()
         }
     }

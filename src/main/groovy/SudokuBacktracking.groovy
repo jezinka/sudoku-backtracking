@@ -1,3 +1,6 @@
+import groovy.time.TimeCategory
+import groovy.time.TimeDuration
+
 class SudokuBacktracking {
 
     private List<List<Integer>> board
@@ -6,15 +9,28 @@ class SudokuBacktracking {
 
     private String textOutput = ''
 
+    private Date startTime
+    private TimeDuration duration
+
     SudokuBacktracking(List<List<Integer>> board) {
         this.board = board
         this.rowIndex = 0
         this.columnIndex = 0
         this.board.eachWithIndex { List<Integer> row, int i -> row.eachWithIndex { int col, int j -> this.isFixedNumber.put("$i$j".toString(), col != 0) } }
+        this.startTime = new Date()
     }
 
     boolean isResolved() {
-        return board.flatten().every { it != 0 }
+        def resolved = board.flatten().every { it != 0 }
+        if (resolved) {
+            Date endTime = new Date()
+            duration = TimeCategory.minus(endTime, startTime)
+        }
+        return resolved
+    }
+
+    TimeDuration getDuration() {
+        return duration
     }
 
     List getFixedPositions() {
