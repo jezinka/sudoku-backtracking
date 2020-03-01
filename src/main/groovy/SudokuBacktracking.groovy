@@ -43,7 +43,7 @@ class SudokuBacktracking {
         } else {
             int cell = board[rowIndex][columnIndex]
             int value = ++cell
-            if (value <= 9) {
+            if (value <= this.board.size()) {
                 board[rowIndex][columnIndex] = value
                 if (this.boardValidation()) {
                     nextCell()
@@ -67,7 +67,7 @@ class SudokuBacktracking {
     }
 
     private void nextCell() {
-        if (columnIndex < 8) {
+        if (columnIndex < this.board.size() - 1) {
             columnIndex++
         } else {
             columnIndex = 0
@@ -79,7 +79,7 @@ class SudokuBacktracking {
         if (columnIndex > 0) {
             columnIndex--
         } else {
-            columnIndex = 8
+            columnIndex = this.board.size() - 1
             rowIndex--
         }
     }
@@ -91,7 +91,7 @@ class SudokuBacktracking {
                 right = false
             }
         }
-        (0..8).each { colNum ->
+        (0..this.board.size() - 1).each { colNum ->
             List<Integer> column = board.collect { it[colNum] }
             if (column.findAll { it != 0 }.countBy { it }.any { k, v -> v != 1 }) {
                 right = false
@@ -101,7 +101,7 @@ class SudokuBacktracking {
         Map<String, List<Integer>> squares = [:]
         board.eachWithIndex { List<Integer> row, int i ->
             row.eachWithIndex { int entry, int j ->
-                String key = "${Math.floor(i / 3) as Integer}${Math.floor(j / 3) as Integer}".toString()
+                String key = "${Math.floor(i / Math.sqrt(row.size())) as Integer}${Math.floor(j / Math.sqrt(row.size())) as Integer}".toString()
                 if (!squares.containsKey(key)) {
                     squares[key] = [entry]
                 } else {
