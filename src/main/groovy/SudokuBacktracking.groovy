@@ -13,7 +13,7 @@ class SudokuBacktracking {
     private TimeDuration duration
 
     SudokuBacktracking(List<List<Integer>> board) {
-        this.board = board
+        this.board = board.collect { it.collect() }
         this.rowIndex = 0
         this.columnIndex = 0
         this.board.eachWithIndex { List<Integer> row, int i -> row.eachWithIndex { int col, int j -> this.isFixedNumber.put("$i$j".toString(), col != 0) } }
