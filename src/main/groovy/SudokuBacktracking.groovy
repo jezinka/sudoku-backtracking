@@ -34,7 +34,10 @@ class SudokuBacktracking {
     }
 
     List getFixedPositions() {
-        isFixedNumber.findAll { k, v -> v }.keySet().collect { it.split('').collect { it as Integer } }
+        isFixedNumber
+                .findAll { k, v -> v }
+                .keySet()
+                .collect { it.split('').collect { it as Integer } }
     }
 
     void step() {
@@ -101,7 +104,7 @@ class SudokuBacktracking {
         Map<String, List<Integer>> squares = [:]
         board.eachWithIndex { List<Integer> row, int i ->
             row.eachWithIndex { int entry, int j ->
-                String key = "${Math.floor(i / Math.sqrt(row.size())) as Integer}${Math.floor(j / Math.sqrt(row.size())) as Integer}".toString()
+                String key = findSquare(i, j)
                 if (!squares.containsKey(key)) {
                     squares[key] = [entry]
                 } else {
@@ -116,5 +119,10 @@ class SudokuBacktracking {
             }
         }
         return right
+    }
+
+    private String findSquare(int i, int j) {
+        int squareCount = Math.sqrt(board.size()) as Integer
+        return "${Math.floor(i / squareCount)}${Math.floor(j / squareCount)}".toString()
     }
 }
