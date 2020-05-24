@@ -21,7 +21,7 @@ class SudokuBacktracking {
     }
 
     boolean isResolved() {
-        def resolved = board.flatten().every { it != 0 }
+        def resolved = board.flatten().every { it != 0 } && valid
         if (resolved) {
             Date endTime = new Date()
             duration = TimeCategory.minus(endTime, startTime)
@@ -48,7 +48,7 @@ class SudokuBacktracking {
             int value = ++cell
             if (value <= this.board.size()) {
                 board[rowIndex][columnIndex] = value
-                if (this.boardValidation()) {
+                if (this.valid) {
                     nextCell()
                 }
             } else {
@@ -87,7 +87,7 @@ class SudokuBacktracking {
         }
     }
 
-    private boolean boardValidation() {
+    private boolean isValid() {
         boolean right = true
         board.each { row ->
             if (row.findAll { it != 0 }.countBy { it }.any { k, v -> v != 1 }) {
